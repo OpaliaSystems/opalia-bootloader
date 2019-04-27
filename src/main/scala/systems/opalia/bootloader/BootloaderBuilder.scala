@@ -3,6 +3,7 @@ package systems.opalia.bootloader
 import com.typesafe.config.Config
 import java.net.JarURLConnection
 import java.nio.file.{Path, Paths}
+import org.eclipse.aether.artifact.DefaultArtifact
 import org.osgi.framework.Constants
 import scala.collection.JavaConverters._
 import scala.collection.immutable.ListMap
@@ -16,7 +17,7 @@ final class BootloaderBuilder private(val bundleConfig: Config,
                                       val extraExportPackages: Seq[String],
                                       val remoteRepositories: ListMap[String, String],
                                       val localRepository: String,
-                                      val bundleArtifacts: Seq[String],
+                                      val bundleArtifacts: Seq[DefaultArtifact],
                                       val useShutdownHook: Boolean) {
 
   def withCacheDirectory(cacheDirectory: Path): BootloaderBuilder = {
@@ -173,7 +174,7 @@ final class BootloaderBuilder private(val bundleConfig: Config,
     )
   }
 
-  def withBundles(bundleArtifacts: Seq[String]): BootloaderBuilder = {
+  def withBundles(bundleArtifacts: Seq[DefaultArtifact]): BootloaderBuilder = {
 
     new BootloaderBuilder(
       bundleConfig,
@@ -187,7 +188,7 @@ final class BootloaderBuilder private(val bundleConfig: Config,
     )
   }
 
-  def withBundle(bundleArtifact: String): BootloaderBuilder = {
+  def withBundle(bundleArtifact: DefaultArtifact): BootloaderBuilder = {
 
     new BootloaderBuilder(
       bundleConfig,
@@ -201,7 +202,7 @@ final class BootloaderBuilder private(val bundleConfig: Config,
     )
   }
 
-  def withoutBundle(bundleArtifact: String): BootloaderBuilder = {
+  def withoutBundle(bundleArtifact: DefaultArtifact): BootloaderBuilder = {
 
     new BootloaderBuilder(
       bundleConfig,
@@ -357,7 +358,7 @@ object BootloaderBuilder {
       extraExportPackages,
       ListMap(remoteRepositories: _*),
       localRepository,
-      bundleArtifacts,
+      bundleArtifacts.map(x => new DefaultArtifact(x)),
       useShutdownHook
     )
   }

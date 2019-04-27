@@ -29,24 +29,24 @@ final class ArtifactResolver(remoteRepositories: Seq[RemoteRepository],
       new LocalRepository(localRepository)
     )
 
-  def resolve(artifactName: String): Artifact = {
+  def resolve(artifact: DefaultArtifact): Artifact = {
 
     val session = newRepositorySystemSession()
 
     val artifactRequest = new ArtifactRequest()
 
-    artifactRequest.setArtifact(new DefaultArtifact(artifactName))
+    artifactRequest.setArtifact(artifact)
     artifactRequest.setRepositories(remoteRepositories.asJava)
 
     val artifactResult = repositorySystem.resolveArtifact(session, artifactRequest)
 
     if (artifactResult.isMissing)
-      throw new IllegalArgumentException(s"Cannot resolve artifact “$artifactName”.")
+      throw new IllegalArgumentException(s"Cannot resolve artifact “$artifact”.")
 
     artifactResult.getArtifact
   }
 
-  def resolveTransitive(artifactName: String,
+  def resolveTransitive(artifact: DefaultArtifact,
                         scope: ArtifactResolver.Scope,
                         scopeFilter: Seq[ArtifactResolver.Scope]): Seq[Artifact] = {
 
@@ -54,7 +54,7 @@ final class ArtifactResolver(remoteRepositories: Seq[RemoteRepository],
 
     val collectRequest = new CollectRequest()
 
-    collectRequest.setRoot(new Dependency(new DefaultArtifact(artifactName), scope.toString))
+    collectRequest.setRoot(new Dependency(artifact, scope.toString))
     collectRequest.setRepositories(remoteRepositories.asJava)
 
     val dependencyRequest =
