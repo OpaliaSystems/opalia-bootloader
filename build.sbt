@@ -20,8 +20,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "systems.opalia" %% "interfaces" % "0.1.0-SNAPSHOT",
-  "systems.opalia" %% "commons" % "0.1.0-SNAPSHOT",
+  "systems.opalia" %% "interfaces" % "1.0.0",
+  "systems.opalia" %% "commons" % "1.0.0",
   "org.slf4j" % "slf4j-simple" % "1.7.26",
   "org.apache.felix" % "org.apache.felix.framework" % "6.0.2",
   "org.apache.felix" % "org.apache.felix.main" % "6.0.2",

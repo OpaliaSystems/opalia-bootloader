@@ -8,8 +8,8 @@ import org.osgi.framework.launch.{Framework, FrameworkFactory}
 import scala.collection.JavaConverters._
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import systems.opalia.interfaces.soa.Bootable
-import systems.opalia.interfaces.soa.osgi.{ConfigurationService, ServiceManager}
+import systems.opalia.interfaces.soa.osgi.ServiceManager
+import systems.opalia.interfaces.soa.{Bootable, ConfigurationService}
 
 
 final class Bootloader(frameworkConfig: Map[String, String],
