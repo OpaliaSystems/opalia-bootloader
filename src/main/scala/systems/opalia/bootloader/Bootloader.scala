@@ -27,7 +27,7 @@ final class Bootloader(frameworkConfig: Map[String, String],
   private val serviceManager = new ServiceManager()
   private val bundles = bundleArtifacts.map(x => bundleContext.installBundle(s"file://${x.getFile.getAbsolutePath}"))
 
-  def setupTask(): Unit = {
+  protected def setupTask(): Unit = {
 
     if (useShutdownHook)
       sys.addShutdownHook({
@@ -48,7 +48,7 @@ final class Bootloader(frameworkConfig: Map[String, String],
     bundles.foreach(_.start())
   }
 
-  def shutdownTask(): Unit =
+  protected def shutdownTask(): Unit =
     synchronized {
 
       bundles.reverse.foreach(_.stop())
