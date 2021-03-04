@@ -11,7 +11,7 @@ description := "The project helps to boot the Opalia stack."
 
 homepage := Some(url("https://github.com/OpaliaSystems/opalia-bootloader"))
 
-version := "0.1.0"
+version := "1.0.0"
 
 scalaVersion := "2.12.13"
 
